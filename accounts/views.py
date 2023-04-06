@@ -32,6 +32,7 @@ def signup(request):
                 UserModel.objects.create_user(username=username, password=password, email=email)
         return redirect('/user_login')
 
+
 def user_login(request):
 # 로그인 view
     if request.method == 'POST':
@@ -51,6 +52,7 @@ def user_login(request):
             return redirect('/') # 로그아웃
         else:
             return render(request, 'accounts/signin.html')
+
 
 @login_required
 def user_logout(request):

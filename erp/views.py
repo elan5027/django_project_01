@@ -103,8 +103,8 @@ def outbound_create(request):
 
                     product = outbound.product
                     quantity = outbound.quantity
-                    quantity_check = Product.objects.filter(name=product).values()
-                    if (quantity_check.first()['stock_quantity'] - quantity) < 0:
+                    quantity_check = Product.objects.filter(name=product).values('stock_quantity').first()
+                    if (quantity_check['stock_quantity'] - quantity) < 0:
                         raise Exception("해당 물품의 갯수만큼의 상품이 없습니다.")
                     if quantity < 0:
                         raise Exception("음수값은 입력할수 없습니다.")

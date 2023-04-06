@@ -1,6 +1,7 @@
 from django import forms
 from .models import Product, Inbound, Outbound
 
+
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
@@ -11,6 +12,7 @@ class InboundForm(forms.ModelForm):
     class Meta:
         model = Inbound
         fields = ['product', 'quantity']
+
 
 class OutboundForm(forms.ModelForm):
     class Meta:

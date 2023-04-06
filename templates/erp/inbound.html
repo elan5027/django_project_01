@@ -5,6 +5,11 @@
   <form class="form-area" method="post" action="/inbound/create/" >
     {% csrf_token %}
     {{ form.as_p }}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
     <button type="submit">추가</button>
   </form>
 {% endblock %}
