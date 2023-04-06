@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>상품 출고</h1>
+  <form class="form-area" method="post" action="/outbound/create/" >
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    <button type="submit">추가</button>
+  </form>
+{% endblock %}

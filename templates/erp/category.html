@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>카테고리 체크</h1>
+  <form class="form-area" method="post" action="/category/create/" >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">추가</button>
+  </form>
+{% endblock %}

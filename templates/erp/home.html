@@ -1,0 +1,50 @@
+<!-- templates/tweet/home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container timeline-container">
+        <div class="row">
+            <!-- 왼쪽 컬럼 -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">상품 관리</h5>
+                        <p class="card-text">Email : {{ user.email }}</p>
+                        <a class="nav-link" href="/product/add"> 상품 추가 <span class="sr-only"></span></a>
+                        <a class="nav-link" href="/inbound/create"> 상품 입고 <span class="sr-only"></span></a>
+                        <a class="nav-link" href="/outbound/create"> 상품 출고<span class="sr-only"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <hr>
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="media">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">{{ product.name }}</h5>
+                                        <p>분류 : {{ product.category }}</p>
+                                        <p>코드 : {{ product.code }}</p>
+                                        <p>설명 : {{ product.description }}</p>
+                                        <p>가격 :{{ product.price }}</p>
+                                        <p>사이즈 : {{ product.size }}</p>
+                                        <p>수량 : {{ product.stock_quantity }}</p>
+                                    </div>
+                                    <div style="text-align: right">
+                                        <span style="font-size: small">{{ product.author.username }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+{% endblock %}
