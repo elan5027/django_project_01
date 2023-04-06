@@ -91,7 +91,6 @@ def inbound_create(request):
     return render(request, 'erp/inbound.html', context)
 
 
-
 @login_required
 def outbound_create(request):
     if request.method == 'POST':
@@ -105,7 +104,7 @@ def outbound_create(request):
                     product = outbound.product
                     quantity = outbound.quantity
                     quantity_check = Product.objects.filter(name=product).values()
-                    if (quantity_check[0]['stock_quantity'] - quantity) < 0:
+                    if (quantity_check.first()['stock_quantity'] - quantity) < 0:
                         raise Exception("해당 물품의 갯수만큼의 상품이 없습니다.")
                     if quantity < 0:
                         raise Exception("음수값은 입력할수 없습니다.")
