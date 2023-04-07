@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>카테고리 체크</h1>
-  <form class="form-area" method="post" action="/category/" >
+  <h1>사이즈 코드</h1>
+  <form class="form-area" method="post" action="/detail/" >
     {% csrf_token %}
-    {{ form.category.as_p }}
+    {{ form.size.as_p }}
     <button type="submit">추가</button>
   </form>
 {% endblock %}

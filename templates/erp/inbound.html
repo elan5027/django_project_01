@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>상품 입고</h1>
-  <form class="form-area" method="post" action="/inbound/create/" >
+  <form class="form-area" method="post" action="/inbound/" >
     {% csrf_token %}
     {{ form.as_p }}
     {% if error %}

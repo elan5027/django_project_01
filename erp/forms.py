@@ -1,11 +1,26 @@
 from django import forms
-from .models import Product, Inbound, Outbound
+from .models import Product, Inbound, Outbound, CategorySize, Category
+
+
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'category', 'size', 'code', 'description', 'price']
+        fields = ['name', 'category', 'size', 'description', 'price']
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['category']
+
+
+class CategorySizeForm(forms.ModelForm):
+    class Meta:
+        model = CategorySize
+        fields = ['category','size']
+
 
 
 class InboundForm(forms.ModelForm):

@@ -1,30 +1,31 @@
 from django.db import models
 
 
-# Create your models here.
+class Category(models.Model):
+    category = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.category
+
+
+class CategorySize(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    size = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.size
+
+
 class Product(models.Model):
-
-    categorys = (
-        ('Jean', 'Jean'),
-        ('Hood', 'Hood'),
-        ('Socks', 'Socks'),
-        ('Hat', 'Hat'),
-    )
-
-    name = models.CharField(max_length=40)
-    category = models.CharField(choices=categorys, max_length=10)
-    code = models.CharField(max_length=20)
-    size = models.CharField(max_length=10)
+    name = models.CharField(max_length=40, unique=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    size = models.ForeignKey(CategorySize, on_delete=models.CASCADE)
     description = models.CharField(max_length=256)
     price = models.BigIntegerField()
     stock_quantity = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        self.stock_quantity = 0
-        super().save(*args, **kwargs)
 
 
 class Inbound(models.Model):

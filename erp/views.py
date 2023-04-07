@@ -2,8 +2,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, TemplateView
-from .forms import ProductForm, InboundForm, OutboundForm
-from .models import Product, Inbound, Outbound
+from .forms import ProductForm, InboundForm, OutboundForm, CategorySizeForm, CategoryForm
+from .models import Product, Inbound, Outbound, CategorySize, Category
 from django.db import transaction
 from django.db.models import F
 from django.http import JsonResponse
@@ -18,6 +18,34 @@ def product_main(request):
         return redirect('/user_login')
 
 
+def category_create(request):
+    if request.method == 'POST':
+        print("TEST:")
+        form = CategoryForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = {
+            'category' : CategoryForm(),
+        }
+    return render(request, 'erp/category.html', {'form': form})
+
+def detail_create(request):
+    if request.method == 'POST':
+        form = CategorySizeForm(request.POST)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = {
+            'size' : CategorySizeForm(),
+        }
+    return render(request, 'erp/codesize.html', {'form': form})
+
+
 @login_required
 @transaction.atomic
 def product_add(request):
@@ -30,31 +58,6 @@ def product_add(request):
     else:
         form = ProductForm()
     return render(request, 'erp/product_add.html', {'form': form})
-
-
-def get_category(request):
-    item = request.GET.get('item')
-    # doc2 = [x[1] for x in Product.categorys ]
-    # 나중에 수정 A,B,C size 수치도 딕셔너리로 받아오고 자동생성하게.
-    doc = {
-        'Hood': ('S', 'M', 'L', 'XL'),
-        'Jean': 'FREE',
-        'Socks': ('M', 'S', 'L', 'FREE'),
-        'Hat': 'FREE',
-    }
-    return JsonResponse({"result": doc[item]})
-
-
-def get_code(request):
-
-    item = request.GET.get('item')
-    doc = {
-        'Hood': ('hood-001', 'hood-002', 'hood-003'),
-        'Jean': 'jean-001',
-        'Socks': ('socks-001', 'socks-002', 'socks-003', 'socks-004'),
-        'Hat': ('hat-001', 'hat-002'),
-    }
-    return JsonResponse({"result": doc[item]})
 
 
 @login_required

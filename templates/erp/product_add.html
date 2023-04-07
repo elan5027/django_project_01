@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>상품 추가</h1>
-  <form class="form-area" id="add_form" method="post" action="/product/add/" >
+  <form class="form-area" id="add_form" method="post" action="/product/" >
     {% csrf_token %}
     {{ form.as_p }}
 
@@ -10,126 +10,5 @@
   </form>
 {% endblock %}
 {% block script %}
-  <script>
-    function change_code(){
-      let item = document.getElementById('id_category')
-      item = item.options[item.selectedIndex].value
-      regeneration_element('id_code')
-      set_select_element('code')
-      let code = document.getElementById('id_code')
-      console.log(code)
-      if(item){
-        console.log(code)
-        $.ajax({
-          url: '/get_code/',
-          async: false,
-          data: {
-            'item': item
-          },
-          dataType: 'json',
-          success: function (data) {
-            console.log(code)
-            while (code.firstChild) {
-              code.removeChild(code.firstChild)
-            }
 
-            if (typeof(data['result']) == 'object') {
-              for (let i = 0; i < data['result'].length; i++) {
-                create_option(data['result'][i], code);
-              }
-            }
-            else{
-              create_option(data['result'], code);
-            }
-          }
-        });
-      }
-      else{
-        remove_element(code)
-      }
-    }
-
-    function change_size(){
-      let item = document.getElementById('id_category')
-      item = item.options[item.selectedIndex].value
-      regeneration_element('id_size')
-      set_select_element("size")
-      let size = document.getElementById('id_size')
-      if(item){
-        $.ajax({
-          url: '/get_category/',
-          data: {
-            'item': item
-          },
-          dataType: 'json',
-          success: function (data) {
-            while (size.firstChild) {
-              size.removeChild(size.firstChild)
-            }
-
-            if (typeof(data['result']) == 'object') {
-              for (let i = 0; i < data['result'].length; i++) {
-                create_option(data['result'][i], size);
-              }
-            }
-            else{
-              create_option(data['result'], size);
-            }
-          }
-        });
-      }
-      else{
-        remove_element(size)
-      }
-    }
-
-    function regeneration_element(name){
-      let regenerater = document.getElementById(name)
-      regenerater.remove()
-      document.querySelector(`label[for=${name}]`).remove()
-    }
-    function create_option(value, data) {
-      let option = document.createElement("OPTION")
-      let txt = document.createTextNode(value);
-      option.appendChild(txt);
-      option.setAttribute("value", value);
-      data.insertBefore(option, data.lastChild);
-    }
-    function set_select_element(name){
-      let point = document.getElementById('add_form')
-      let size = document.createElement('select')
-      let p = document.createElement('p')
-      let size_label = document.createElement('label')
-      size_label.setAttribute("for", "id_"+name)
-      size_label.innerHTML = name+": "
-      point.insertBefore(p, point.childNodes[6])
-      p.appendChild(size_label)
-      size.id = 'id_'+name
-      size.name = name
-      let option = document.createElement("OPTION")
-      let txt = document.createTextNode('------')
-      option.appendChild(txt);
-      option.setAttribute("value", '');
-      size.insertBefore(option, size.lastChild);
-      p.append(size)
-    }
-    function remove_element(element){
-      while(element.firstChild){
-              element.removeChild(element.firstChild)
-        }
-        let option = document.createElement("OPTION")
-        let txt = document.createTextNode('------')
-        option.appendChild(txt);
-        option.setAttribute("value", '');
-        element.insertBefore(option, element.lastChild);
-    }
-    function change_element(){
-      change_code()
-      change_size()
-    }
-    window.onload = function () {
-      document.getElementById('id_category').addEventListener('change', change_element)
-
-    }
-  </script>
 {% endblock %}

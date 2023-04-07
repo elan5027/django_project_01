@@ -10,9 +10,11 @@
                     <div class="card-body">
                         <h5 class="card-title">상품 관리</h5>
                         <p class="card-text">Email : {{ user.email }}</p>
-                        <a class="nav-link" href="/product/add"> 상품 추가 <span class="sr-only"></span></a>
-                        <a class="nav-link" href="/inbound/create"> 상품 입고 <span class="sr-only"></span></a>
-                        <a class="nav-link" href="/outbound/create"> 상품 출고<span class="sr-only"></span></a>
+                        <a class="nav-link" href="/product/"> 상품 추가 <span class="sr-only"></span></a>
+                        <a class="nav-link" href="/inbound/"> 상품 입고 <span class="sr-only"></span></a>
+                        <a class="nav-link" href="/outbound/"> 상품 출고<span class="sr-only"></span></a>
+                        <a class="nav-link" href="/category/"> 카테고리 추가 <span class="sr-only"></span></a>
+                        <a class="nav-link" href="/detail/"> 사이즈&코드 추가 <span class="sr-only"></span></a>
                     </div>
                 </div>
             </div>
@@ -27,7 +29,6 @@
                                     <div class="media-body">
                                         <h5 class="mt-0">{{ product.name }}</h5>
                                         <p>분류 : {{ product.category }}</p>
-                                        <p>코드 : {{ product.code }}</p>
                                         <p>설명 : {{ product.description }}</p>
                                         <p>가격 :{{ product.price }}</p>
                                         <p>사이즈 : {{ product.size }}</p>
